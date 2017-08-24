@@ -32,11 +32,7 @@ t_env   *sig_env(t_env *env, int i)
 int		main(int argc, char  **argv)
 {
 	t_env	env;
-	int		pid = -1;
-    int     ret;
 
-//    sysconf(_SC_ATEXIT_MAX);
-//    atexit(ft_atexit);
     sig_env(&env, 1);
 	init_env(&env);
     while (render(&env));

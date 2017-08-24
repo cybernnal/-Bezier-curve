@@ -85,7 +85,6 @@ static int      mouse_hit(t_env *env)
     y = 0;
     if (SDL_GetMouseState(&x, &y) & SDL_BUTTON(SDL_BUTTON_LEFT))
     {
-        printf("coor: x: %d, y: %d\n", x, y);
         get_mouse_coor(x, y, env);
         env->nb_point++;
         usleep(200000);
@@ -103,11 +102,12 @@ static void         get_point(t_window *w, t_env *e)
     e->point = e->first_point;
     while (e->point)
     {
-        draw_full_circle(e->point->x, e->point->y, 3, POINT_COLOR, w);
+        draw_full_circle(e->point->x, e->point->y, 3, color[1], w);
         if (l.x0 != -1)
         {
             l.y1 = e->point->y;
             l.x1 = e->point->x;
+            l.color = color[0];
             line(l,w);
         }
         l.x0 = e->point->x;
@@ -133,13 +133,13 @@ static t_corr     draw_bezier(t_window *w, t_env *e, t_point *point, t_point *fi
     if (i > 100)
         i = 100;
     l.x0 = -1;
-    e->is_init = -1;
     while (point)
     {
         if (l.x0 != -1)
         {
             l.y1 = point->y;
             l.x1 = point->x;
+            l.color = color[rec % 7];
             line(l, w);
             float dist = (float) sqrt(pow(l.x1 - l.x0, 2) + pow(l.y1 - l.y0, 2));
             if (!p2)
@@ -169,7 +169,6 @@ static t_corr     draw_bezier(t_window *w, t_env *e, t_point *point, t_point *fi
         else
             draw_bezier(w, e, p2, f2, rec + 1);
     }
-//    line(l, e, w);
     i++;
     return (coor);
 }
@@ -177,8 +176,8 @@ static t_corr     draw_bezier(t_window *w, t_env *e, t_point *point, t_point *fi
 int					render(t_env *env)
 {
 	static t_window w;
-    static t_point *p;
-    static t_point *f;
+    static t_point *p = NULL;
+    static t_point *f = NULL;
     t_corr coor;
     t_line l;
 
@@ -190,6 +189,17 @@ int					render(t_env *env)
     bzero(w.img_ptr, sizeof(Uint32) * WIN_Y * WIN_X);
     while (SDL_PollEvent(&w.event)) {
         key_hook(w.event, env);
+    }
+    if (env->is_init == -1)
+    {
+        while (f)
+        {
+            p = f->next;
+            ft_memdel((void**)&f);
+            f = p;
+        }
+        f = NULL;
+        env->is_init = 1;
     }
     if (env->is_draw == 0)
 	    get_point(&w, env);
@@ -218,11 +228,11 @@ int					render(t_env *env)
             {
                 l.y1 = p->y;
                 l.x1 = p->x;
+                l.color = 0x8a2be2;
                 line(l, &w);
             }
             l.x0 = p->x;
             l.y0 = p->y;
-            //draw_pixel(p->x, p->y, 0xED7F10, &w);
             p = p->next;
         }
     }

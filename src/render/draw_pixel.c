@@ -3,7 +3,6 @@
 void        draw_pixel(int x, int y, Uint32 color, t_window *w)
 {
     if ((y > WIN_Y || x > WIN_X || x < 0 || y < 0)) {
-        printf("x: %d, y: %d\n", x, y);
         return ;
     }
     w->img_ptr[WIN_X * y + x] = color;
@@ -15,7 +14,6 @@ static void			loop_line(t_line l, t_window *w)
     int i;
 
     i = 0;
-    l.color = 0xFF0000;
     l.dx = abs(l.x1 - l.x0);
     l.sx = l.x0 < l.x1 ? 1 : -1;
     l.dy = abs(l.y1 - l.y0);
@@ -43,7 +41,5 @@ static void			loop_line(t_line l, t_window *w)
 
 void			line(t_line l, t_window *w)
 {
-    //if ((l.y0 > WIN_Y || l.x0 > WIN_X || l.x0 < 0 || l.y0 < 0 || l.y1 > WIN_Y || l.x1 > WIN_X || l.x1 < 0 || l.y1 < 0))
-      //  return ;
-    loop_line(l, w);
+     loop_line(l, w);
 }
