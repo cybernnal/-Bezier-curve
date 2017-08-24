@@ -20,7 +20,8 @@ static t_corr		loop_line(t_line l, t_window *w, float dist, int first_call, t_co
     while (1)
     {
         d2 = (float)sqrt(pow(l.x1 - l.x0, 2) + pow(l.y1 - l.y0, 2));
-        if ((int)dist == (int)d2 || (int)dist == (int)d2 - 1 || (int)dist == (int)d2 + 1) {
+        if ((int)dist == (int)d2 || (int)dist == (int)d2 + 1)// || (int)dist == (int)d2 - 1)
+        {
             draw_full_circle(l.x0, l.y0, 3, l.color, w);
             break;
         }

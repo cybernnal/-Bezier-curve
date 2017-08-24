@@ -34,6 +34,7 @@ int     ft_restart(t_env *e)
 {
     ft_bzero(e, sizeof(t_env));
     e->is_init = -1;
+    return (0);
 }
 
 

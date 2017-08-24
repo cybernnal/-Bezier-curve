@@ -27,6 +27,8 @@
 #define WIN_X   1100
 #define WIN_Y   1050
 
+#define ITER_MAX 100
+
 #define POINT_COLOR 0x00FFFF
 
 
@@ -85,6 +87,7 @@ typedef struct		    s_env
     int                  nb_point;
     int                  is_draw;
     int                  is_init;
+    int                 iteration;
 }			    		t_env;
 
 void    			    init_env(t_env *env);

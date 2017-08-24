@@ -29,9 +29,9 @@ int				key_hook(SDL_Event k, t_env *e)
 	if (!t_hook[0]) {
 		ft_tab_ft_init(t_hook);
 	}
-	if (k.key.type == SDL_KEYDOWN)
-    {
-        t_hook[k.key.keysym.sym](e);
-    }
+    if (k.key.keysym.sym > 0 && k.key.keysym.sym < 150)
+	    if (k.key.type == SDL_KEYDOWN) {
+            t_hook[k.key.keysym.sym](e);
+        }
     return (0);
 }

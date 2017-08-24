@@ -35,6 +35,15 @@ int		main(int argc, char  **argv)
 
     sig_env(&env, 1);
 	init_env(&env);
+    if (argc >= 3)
+    {
+        if (!ft_strcmp(argv[1], "-i") || !ft_strcmp(argv[1], "--iterations"))
+            env.iteration = ft_atoi(argv[2]);
+        else
+            env.iteration = ITER_MAX;
+    }
+    else
+        env.iteration = ITER_MAX;
     while (render(&env));
 	return (0);
 }

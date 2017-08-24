@@ -130,8 +130,8 @@ static t_corr     draw_bezier(t_window *w, t_env *e, t_point *point, t_point *fi
     t_line l;
 
     p2 = NULL;
-    if (i > 100)
-        i = 100;
+    if (i > e->iteration)
+        i = e->iteration;
     l.x0 = -1;
     while (point)
     {
@@ -144,13 +144,13 @@ static t_corr     draw_bezier(t_window *w, t_env *e, t_point *point, t_point *fi
             float dist = (float) sqrt(pow(l.x1 - l.x0, 2) + pow(l.y1 - l.y0, 2));
             if (!p2)
             {
-                coor = place_point(l, e, w, dist - L_CF(i, 0, 100, 0, dist), 1, coor);
+                coor = place_point(l, e, w, dist - L_CF(i, 0, e->iteration, 0, dist), 1, coor);
                 p2 = (t_point*)ft_memalloc(sizeof(t_point));
                 f2 = p2;
             }
             else
             {
-                coor = place_point(l, e, w, dist - L_CF(i, 0, 100, 0, dist), 0, coor);
+                coor = place_point(l, e, w, dist - L_CF(i, 0, e->iteration, 0, dist), 0, coor);
                 p2->next = (t_point*)ft_memalloc(sizeof(t_point));
                 p2 = p2->next;
             }
@@ -239,6 +239,12 @@ int					render(t_env *env)
 	SDL_UpdateTexture(w.image, NULL, w.img_ptr, WIN_X * sizeof(Uint32));
 	SDL_RenderCopy(w.renderer, w.image, NULL, NULL);
 	SDL_RenderPresent(w.renderer);
-    usleep(100000);
+
+    if (env->iteration > 5000)
+        return (1);
+    if (env->iteration > 100)
+        usleep((useconds_t)(100000 / (env->iteration / 100)));
+    else
+        usleep((useconds_t)(100000));
 	return (1);
 }
