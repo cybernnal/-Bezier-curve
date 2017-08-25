@@ -6,7 +6,7 @@ set(CMAKE_C_COMPILER)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 
 set(SOURCE_FILES
-    include/tetris.h
+        include/bezier.h
     libft/ft_atoi.c
     libft/ft_atoidbl.c
     libft/ft_bzero.c

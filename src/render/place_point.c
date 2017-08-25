@@ -2,7 +2,7 @@
 // Created by tom billard on 24/08/2017.
 //
 
-#include "tetris.h"
+#include "bezier.h"
 
 static t_corr		loop_line(t_line l, t_window *w, float dist, int first_call, t_corr c)
 {

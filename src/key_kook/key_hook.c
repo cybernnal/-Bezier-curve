@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tetris.h"
+#include "bezier.h"
 
 static void		ft_tab_ft_init(int (**tab_ft)(t_env*))
 {

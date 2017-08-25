@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include <signal.h>
-#include <tetris.h>
-#include "tetris.h"
+#include <bezier.h>
+#include "bezier.h"
 
 void    init_env(t_env *env)
 {

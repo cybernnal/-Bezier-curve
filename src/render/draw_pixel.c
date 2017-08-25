@@ -1,4 +1,4 @@
-#include "tetris.h"
+#include "bezier.h"
 
 void        draw_pixel(int x, int y, Uint32 color, t_window *w)
 {
