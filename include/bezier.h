@@ -24,7 +24,7 @@
 //#include <SDL_ttf.h>
 
 #include <netdb.h>
-#define WIN_X   1100
+#define WIN_X   1900
 #define WIN_Y   1050
 
 #define ITER_MAX 100
@@ -88,6 +88,8 @@ typedef struct		    s_env
     int                  is_draw;
     int                  is_init;
     int                 iteration;
+    int                 nrand;
+    int                 sleep;
 }			    		t_env;
 
 void    			    init_env(t_env *env);
@@ -99,6 +101,6 @@ void		            ft_tab_ft_init_1(int (**tab_ft)(t_env*));
 void                    draw_pixel(int x, int y, Uint32 color, t_window *w);
 int                     nil(t_env *env);
 void        			line(t_line l, t_window *w);
-t_corr      			place_point(t_line l, t_env *e, t_window *w, float dist, int f_c, t_corr c);
+t_corr      			place_point(t_line l, t_env *e, t_window *w, float dist, int f_c, t_corr c, int rec);
 void                    draw_full_circle(int x0, int y0, int radius, Uint32 color, t_window *w);
 #endif

@@ -87,10 +87,24 @@ static int      mouse_hit(t_env *env)
     {
         get_mouse_coor(x, y, env);
         env->nb_point++;
-        usleep(200000);
+        if (env->sleep > 0)
+            usleep((useconds_t)env->sleep);
+        else
+            usleep(100000);
         return (1);
     }
     return (0);
+}
+
+static int      mouse_hit_r(t_env *env)
+{
+    get_mouse_coor(rand() % WIN_X, rand() % WIN_Y, env);
+    env->nb_point++;
+    if (env->sleep > 0)
+        usleep((useconds_t)env->sleep);
+    else
+        usleep(100000);
+    return (1);
 }
 
 static void         get_point(t_window *w, t_env *e)
@@ -98,7 +112,10 @@ static void         get_point(t_window *w, t_env *e)
     t_line l;
     l.x0 = -1;
 
-    mouse_hit(e);
+    if (e->nrand > 0)
+        mouse_hit_r(e);
+    else
+        mouse_hit(e);
     e->point = e->first_point;
     while (e->point)
     {
@@ -141,16 +158,17 @@ static t_corr     draw_bezier(t_window *w, t_env *e, t_point *point, t_point *fi
             l.x1 = point->x;
             l.color = color[rec % 7];
             line(l, w);
+            l.color = color[rec + 1 % 7];
             float dist = (float) sqrt(pow(l.x1 - l.x0, 2) + pow(l.y1 - l.y0, 2));
+            coor = place_point(l, e, w, dist - L_CF(i, 0, e->iteration, 0, dist), 1, coor, rec);
             if (!p2)
             {
-                coor = place_point(l, e, w, dist - L_CF(i, 0, e->iteration, 0, dist), 1, coor);
                 p2 = (t_point*)ft_memalloc(sizeof(t_point));
                 f2 = p2;
             }
             else
             {
-                coor = place_point(l, e, w, dist - L_CF(i, 0, e->iteration, 0, dist), 0, coor);
+                coor = place_point(l, e, w, dist - L_CF(i, 0, e->iteration, 0, dist), 0, coor, rec);
                 p2->next = (t_point*)ft_memalloc(sizeof(t_point));
                 p2 = p2->next;
             }
@@ -201,6 +219,8 @@ int					render(t_env *env)
         f = NULL;
         env->is_init = 1;
     }
+    if (env->nb_point >= env->nrand)
+        env->is_draw = 42;
     if (env->is_draw == 0)
 	    get_point(&w, env);
     else

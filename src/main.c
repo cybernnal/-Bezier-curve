@@ -32,17 +32,42 @@ t_env   *sig_env(t_env *env, int i)
 int		main(int argc, char  **argv)
 {
 	t_env	env;
+    int i = 1;
 
     sig_env(&env, 1);
 	init_env(&env);
     if (argc >= 3)
     {
-        if (!ft_strcmp(argv[1], "-i") || !ft_strcmp(argv[1], "--iterations"))
-            env.iteration = ft_atoi(argv[2]);
-        else
-            env.iteration = ITER_MAX;
+        while (1)
+        {
+            if (!ft_strcmp(argv[i], "-i") || !ft_strcmp(argv[i], "--iterations"))
+            {
+                i++;
+                if (!argv[i])
+                    break;
+                env.iteration = ft_atoi(argv[i++]);
+            }
+            else if (!ft_strcmp(argv[i], "-r") || !ft_strcmp(argv[i], "--random"))
+            {
+                i++;
+                if (!argv[i])
+                    break;
+                env.nrand = ft_atoi(argv[i++]);
+            }
+            else if (!ft_strcmp(argv[i], "-s") || !ft_strcmp(argv[i], "--sleep"))
+            {
+                i++;
+                if (!argv[i])
+                    break;
+                env.sleep = ft_atoi(argv[i++]);
+            }
+            else
+                break ;
+            if (i >= argc)
+                break;
+        }
     }
-    else
+    if (!env.iteration)
         env.iteration = ITER_MAX;
     while (render(&env));
 	return (0);

@@ -3,8 +3,9 @@
 //
 
 #include "bezier.h"
+uint32_t colorr[7] = {0xFF0000, 0x00FFFF, 0xED7F10, 0xFFFF00, 0x00FF00, 0xAFAFAF, 0x0000FF};
 
-static t_corr		loop_line(t_line l, t_window *w, float dist, int first_call, t_corr c)
+static t_corr		loop_line(t_line l, t_window *w, float dist, int first_call, t_corr c, int rec)
 {
     int i;
     float d2;
@@ -46,6 +47,7 @@ static t_corr		loop_line(t_line l, t_window *w, float dist, int first_call, t_co
         li.y0 = c.y;
         li.x1 = l.x0;
         li.y1 = l.y0;
+        li.color =  colorr[(rec + 1) % 7];
         line(li, w);
     }
     coor0.x = l.x0;
@@ -53,7 +55,7 @@ static t_corr		loop_line(t_line l, t_window *w, float dist, int first_call, t_co
     return (coor0);
 }
 
-t_corr			place_point(t_line l, t_env *e, t_window *w, float dist, int f_c, t_corr c)
+t_corr			place_point(t_line l, t_env *e, t_window *w, float dist, int f_c, t_corr c, int rec)
 {
-    return(loop_line(l, w, dist, f_c, c));
+    return(loop_line(l, w, dist, f_c, c, rec));
 }
