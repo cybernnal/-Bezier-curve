@@ -32,8 +32,27 @@ int     ft_start(t_env *e)
 
 int     ft_restart(t_env *e)
 {
+    int it = e->iteration;
+    int sleep = e->sleep;
+    int nrand = e->nrand;
+
+    if (e->first_point)
+    {
+        e->point = e->first_point;
+        while (e->first_point->next)
+        {
+            e->point = e->point->next;
+            ft_memdel((void**)&e->first_point);
+            e->first_point = e->point;
+        }
+        ft_memdel((void**)&e->first_point);
+    }
     ft_bzero(e, sizeof(t_env));
     e->is_init = -1;
+
+    e->iteration = it;
+    e->sleep = sleep;
+    e->nrand = nrand;
     return (0);
 }
 

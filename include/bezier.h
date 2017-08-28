@@ -80,9 +80,7 @@ typedef struct 				s_point
 
 typedef struct		    s_env
 {
-    t_corr               mouse;
     t_point              *point;
-    t_point              *bezier;
     t_point              *first_point;
     int                  nb_point;
     int                  is_draw;
