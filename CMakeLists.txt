@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.6)
 project(bezier)
 enable_language(C)
 set(CMAKE_C_COMPILER)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 
 set(SOURCE_FILES
         include/bezier.h

@@ -69,6 +69,7 @@ int		main(int argc, char  **argv)
     }
     if (!env.iteration)
         env.iteration = ITER_MAX;
+
     while (render(&env));
 	return (0);
 }

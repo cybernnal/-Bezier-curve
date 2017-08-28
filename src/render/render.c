@@ -111,11 +111,10 @@ static void         get_point(t_window *w, t_env *e)
 {
     t_line l;
     l.x0 = -1;
-
-    if (e->nrand > 0)
-        mouse_hit_r(e);
-    else
+    if (!e->nrand)
         mouse_hit(e);
+    else
+        mouse_hit_r(e);
     e->point = e->first_point;
     while (e->point)
     {
@@ -136,8 +135,8 @@ static void         get_point(t_window *w, t_env *e)
 static t_corr     draw_bezier(t_window *w, t_env *e, t_point *point, t_point *first, int rec)
 {
     static int i = 0;
-    t_point *p2;
-    t_point *f2;
+    t_point *p2 = NULL;
+    t_point *f2 = NULL;
     t_corr  coor;
     int     n = 0;
 
@@ -188,6 +187,18 @@ static t_corr     draw_bezier(t_window *w, t_env *e, t_point *point, t_point *fi
             draw_bezier(w, e, p2, f2, rec + 1);
     }
     i++;
+    if (!f2)
+        return (coor);
+    p2 = f2;
+    int t = 0;
+    while (f2->next)
+    {
+        p2 = p2->next;
+        ft_memdel((void**)&f2);
+        f2 = p2;
+        t++;
+    }
+    ft_memdel((void**)&f2);
     return (coor);
 }
 
@@ -219,7 +230,7 @@ int					render(t_env *env)
         f = NULL;
         env->is_init = 1;
     }
-    if (env->nb_point >= env->nrand)
+    if (env->nrand > 0 && env->nb_point >= env->nrand)
         env->is_draw = 42;
     if (env->is_draw == 0)
 	    get_point(&w, env);
