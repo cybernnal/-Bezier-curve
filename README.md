@@ -13,3 +13,7 @@ Use `-s u` or `--sleep u` to set the sleep delay in microseconds after a mouse i
 Left click on the windows for put points
 
 Start animation with `s`
+
+<img width="1821" alt="capture d ecran 2017-08-28 a 19 36 27" src="https://user-images.githubusercontent.com/12376123/29785764-14df62ba-8c29-11e7-9161-dcde5ab1872b.png">
+<img width="1844" alt="capture d ecran 2017-08-28 a 19 29 15" src="https://user-images.githubusercontent.com/12376123/29785765-14e4c8ae-8c29-11e7-86f0-73e098683c0a.png">
+
