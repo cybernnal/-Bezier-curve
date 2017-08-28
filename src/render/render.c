@@ -164,14 +164,15 @@ static t_corr     draw_bezier(t_window *w, t_env *e, t_point *point, t_point *fi
             line(l, w);
             l.color = color[rec + 1 % 7];
             float dist = (float) sqrt(pow(l.x1 - l.x0, 2) + pow(l.y1 - l.y0, 2));
-            coor = place_point(l, e, w, dist - L_CF(i, 0, e->iteration, 0, dist), 1, coor, rec);
             if (!p2)
             {
+                coor = place_point(l, e, w, dist - L_CF(i, 0, e->iteration, 0, dist), 1, coor, rec);
                 p2 = (t_point*)ft_memalloc(sizeof(t_point));
                 f2 = p2;
             }
             else
             {
+                coor = place_point(l, e, w, dist - L_CF(i, 0, e->iteration, 0, dist), 0, coor, rec);
                 p2->next = (t_point*)ft_memalloc(sizeof(t_point));
                 p2 = p2->next;
             }
