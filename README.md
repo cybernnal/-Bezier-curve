@@ -8,7 +8,7 @@ Use `-i` or `--iterations` to set precision of the curve, 1 give a segment, 1500
 
 Use `-r n` or `--random n` to put n point randomly on the screen. Careful lot of point may cause trouble (more than 1000).
 
-Use `-s u` or `--sleep u` to set the sleep delay in microseconds after a mouse input (`-r` is impacted, use `-s 1` for no delay)
+Use `-s u` or `--sleep u` to set the sleep delay in microseconds after a mouse input (`-r` is impacted, use `-s 1` for no delay). (default: 100000)
 
 Left click on the windows for put points
 
